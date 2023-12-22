@@ -1,6 +1,5 @@
 name: Ansible Lint
-on: [ push ]
-
+on: [push]
 jobs:
   Lint:
     runs-on: ubuntu-latest
