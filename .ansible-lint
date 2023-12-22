@@ -1,6 +1,6 @@
 profile: basic
 exclude_paths:
   - .git
-  - .gitea
+  - .github
 skip_list:
   - var-naming
