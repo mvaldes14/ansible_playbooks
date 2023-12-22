@@ -1,0 +1,24 @@
+---
+# tasks file for windows
+- name: Install windows apps
+  chocolatey.chocolatey.win_chocolatey:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - 7zip
+    - discord
+    - docker-desktop
+    - firefox
+    - krita
+    - microsoft-windows-terminal
+    - powertoys
+    - prometheus-wmi-exporter
+    - slack
+    - spotify
+    - steam
+    - vlc
+    - zeal
+    - zoom
+    - alacritty
+  tags:
+    - windows

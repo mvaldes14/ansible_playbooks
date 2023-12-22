@@ -1,0 +1,11 @@
+- name: 'Installs Python Packages'
+  become: true
+  become_user: '{{ USER }}'
+  tags:
+    - python
+  block:
+    - name: 'Pip Packages'
+      ansible.builtin.pip:
+        name: '{{ item }}'
+      with_items:
+        - '{{ pip }}'

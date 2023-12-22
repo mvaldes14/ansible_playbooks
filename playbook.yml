@@ -1,0 +1,13 @@
+--- # Main playbook
+- hosts: homelab
+  name: Base Setup for new system
+  gather_facts: true
+  roles:
+    - shell
+    - base
+    - asdf
+  tasks:
+    - name: Windows Setup
+      ansible.builtin.include_role:
+        name: windows
+      when: "ansible_facts['os_family'] == 'windows'"

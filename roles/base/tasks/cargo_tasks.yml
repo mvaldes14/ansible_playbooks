@@ -1,0 +1,13 @@
+- name: 'Install Rust Packages'
+  become: true
+  become_user: '{{ USER }}'
+  tags:
+    - rust
+  block:
+    - name: 'Cargo Packages'
+      become: true
+      become_user: '{{ USER }}'
+      community.general.cargo:
+        name: '{{ item }}'
+      with_items:
+        - '{{ cargo }}'

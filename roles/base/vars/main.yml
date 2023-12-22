@@ -1,0 +1,40 @@
+USER: 'mvaldes'
+utilities:
+  - xclip
+  - tldr
+  - progress
+  - tree
+  - rsync
+  - rclone
+  - prettyping
+  - bat
+  - ncdu
+  - neovim
+  - zsh
+  - jq
+  - fzf
+  - neofetch
+  - tmux
+  - fd-find
+  - ripgrep
+  - stow
+  - python3-venv
+  - python3-pip
+  - unzip
+  - youtube-dl
+  - age
+
+cargo:
+  - xcp
+  - hyperfine
+
+pip:
+  - ansible-lint
+  - pre-commit
+  - molecule
+  - molecule-plugins[docker]
+  - pytest-testinfra
+
+npm:
+  - vite
+  - pnpm

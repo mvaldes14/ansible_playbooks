@@ -1,0 +1,13 @@
+i3:
+  - i3-wm
+  - rofi
+  - playerctl
+  - pavucontrol
+  - pulseaudio-alsa
+  - lxappearance
+  - blueman
+  - pasystray
+  - nm-tray
+  - dunst
+  - feh
+  - picom

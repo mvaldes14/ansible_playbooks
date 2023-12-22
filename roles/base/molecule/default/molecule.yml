@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: ubuntu:latest
+    pre_build_image: false
+    dockerfile: ./Dockerfile
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra
+  options:
+    v: true

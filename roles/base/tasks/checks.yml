@@ -1,0 +1,14 @@
+- name: 'Checks Packages and languages'
+  block:
+    - name: 'Check Python-pip'
+      ansible.builtin.command: 'pip --version'
+      register: check_pip
+      ignore_errors: true
+    - name: 'Check NodeJS installed'
+      ansible.builtin.command: 'node --version'
+      register: check_nodejs
+      ignore_errors: true
+    - name: 'Check Rust'
+      ansible.builtin.command: 'cargo --version'
+      register: check_rust
+      ignore_errors: true

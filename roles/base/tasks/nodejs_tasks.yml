@@ -1,0 +1,12 @@
+- name: 'Install NodeJS Packages'
+  become: true
+  become_user: '{{ USER }}'
+  tags:
+    - nodejs
+  block:
+    - name: 'NPM packages'
+      community.general.npm:
+        name: '{{ item }}'
+        global: true
+      with_items:
+        - '{{ npm }}'

@@ -1,0 +1,29 @@
+- name: 'Optional Tasks'
+  become: true
+  become_user: '{{ USER }}'
+  tags:
+    - opt
+  block:
+    - name: 'Check doppler'
+      ansible.builtin.stat:
+        path: '/usr/bin/doppler'
+      register: doppler_installed
+    - name: 'Doppler CLI'
+      ansible.builtin.command:
+        cmd: (curl -Ls --tlsv1.2 --proto "=https" --retry 3 https://cli.doppler.com/install.sh || wget -t 3 -qO- https://cli.doppler.com/install.sh) | sudo sh
+      when: not doppler_installed.stat.exists
+    - name: 'Check Bitwarden'
+      ansible.builtin.stat:
+        path: /home/$USER/.local/bin/bw
+      register: bw_installed
+    - name: 'Bitwarden CLI'
+      ansible.builtin.get_url:
+        url: https://vault.bitwarden.com/download/?app=cli&platform=linux
+        dest: /tmp/bw
+        mode: '644'
+      when: not bw_installed.stat.exists
+    - name: 'Unzip file'
+      ansible.builtin.unarchive:
+        src: /tmp/bw
+        dest: /home/$USER/.local/bin/
+      when: not bw_installed.stat.exists
