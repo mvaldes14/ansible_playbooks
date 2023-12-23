@@ -13,4 +13,8 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ github.actor }} ran the workflow for repo ${{ github.repository}}
+          message: |
+            Workflow status: ${{ job.status }}
+            Commit: ${{ github.event.head_commit.message }}
+            Repository: ${{ github.repository }}
+            View changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
