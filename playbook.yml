@@ -1,6 +1,6 @@
 --- # Main playbook
-- hosts: homelab
-  name: Base Setup for new system
+- name: Base Setup for new system
+  hosts: homelab
   gather_facts: true
   roles:
     - shell

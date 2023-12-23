@@ -2,5 +2,6 @@ profile: basic
 exclude_paths:
   - .git
   - .github
+  - .direnv
 skip_list:
   - var-naming
