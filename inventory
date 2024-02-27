@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [homelab]
 192.168.1.13
 192.168.1.2
@@ -6,7 +5,3 @@
 
 [local]
 localhost
-=======
-[localhost]
-localhost ansible_connection=local
->>>>>>> 6726427 (adding molecule and tests)

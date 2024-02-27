@@ -12,12 +12,6 @@
     - name: 'Update Cache'
       ansible.builtin.apt:
         update_cache: true
-    - name: 'Install packages'
-      ansible.builtin.apt:
-        name: '{{ item }}'
-        state: present
-      with_items:
-        - '{{ utilities }}'
     - name: 'Check workstation'
       ansible.builtin.stat:
         path: /usr/bin/cinc
@@ -32,21 +26,3 @@
       ansible.builtin.command:
         cmd: /tmp/install.sh -P cinc-workstation -v 22
       when: not cinc_installed.stat.exists
-    - name: 'GH CLI'
-      ansible.builtin.apt:
-        deb: https://github.com/cli/cli/releases/download/v2.31.0/gh_2.31.0_linux_amd64.deb
-    - name: 'Include Checks'
-      ansible.builtin.include_tasks:
-        file: checks.yml
-    - name: 'Include cargo tasks'
-      ansible.builtin.include_tasks:
-        file: cargo_tasks.yml
-      when: check_rust.rc == 0
-    - name: 'Include python tasks'
-      ansible.builtin.include_tasks:
-        file: python_tasks.yml
-      when: check_pip.rc == 0
-    - name: 'Include nodejs tasks'
-      ansible.builtin.include_tasks:
-        file: nodejs_tasks.yml
-      when: check_nodejs.rc == 0
