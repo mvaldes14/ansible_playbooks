@@ -13,6 +13,8 @@
           ansible
           ansible-lint
           molecule
+          python311Packages.kubernetes
+          python311Packages.pip
         ];
       };
     };

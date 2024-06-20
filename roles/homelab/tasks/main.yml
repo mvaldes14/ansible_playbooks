@@ -1,0 +1,55 @@
+# tasks file for homelab
+- name: Check if needed
+  block:
+    - name: Check if update is needed
+      ansible.builtin.shell: "apt list --upgradable | grep -v 'Listing' | wc -l"
+      register: apt_update
+      changed_when: false
+    - name: Validate Updates
+      ansible.builtin.set_fact:
+        upgrade_available: "{{ apt_update.stdout | int > 0 }}"
+- name: Before Reboot
+  block:
+    - name: Node dependencies
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ node_dependencies }}"
+    - name: Python dependencies
+      ansible.builtin.pip:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ python_dependencies }}"
+    - name: Updates packages
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+        update_cache: true
+    - name: Cordon node
+      kubernetes.core.k8s_drain:
+        state: cordon
+        name: "{{ inventory_hostname }}"
+        kubeconfig: /home/mvaldes/.kube/config
+    - name: Drain node
+      kubernetes.core.k8s_drain:
+        state: drain
+        name: "{{ inventory_hostname }}"
+        kubeconfig: /home/mvaldes/.kube/config
+        delete_options:
+          ignore_daemonsets: true
+          delete_emptydir_data: true
+          force: true
+          disable_eviction: true
+    - name: Reboot the machine
+      ansible.builtin.reboot:
+        reboot_timeout: 300
+        pre_reboot_delay: 30
+    - name: Wait for machine
+      ansible.builtin.wait_for_connection:
+        delay: 30
+        timeout: 300
+    - name: Cordon node
+      kubernetes.core.k8s_drain:
+        state: uncordon
+        name: "{{ inventory_hostname }}"
+        kubeconfig: /home/mvaldes/.kube/config

@@ -1,0 +1,29 @@
+- name: Restarts the homelab machines
+  hosts: homelab
+  become: true
+  pre_tasks:
+    - name: Set cluster on no allocation mode
+      ansible.builtin.uri:
+        url: https://elastic.mvaldes.dev/_cluster/settings
+        headers:
+          Authorization: "ApiKey {{ api_key }}"
+        method: PUT
+        body_format: json
+        body: '{"persistent": {"cluster.routing.allocation.enable": "primaries"}}'
+    - name: Flush cluster
+      ansible.builtin.uri:
+        url: https://elastic.mvaldes.dev/_flush
+        headers:
+          Authorization: "ApiKey {{ api_key }}"
+        method: POST
+  post_tasks:
+    - name: Set cluster on regular mode
+      ansible.builtin.uri:
+        url: https://elastic.mvaldes.dev/_cluster/settings
+        headers:
+          Authorization: "ApiKey {{ api_key }}"
+        method: PUT
+        body_format: json
+        body: '{"persistent": {"cluster.routing.allocation.enable": "all"}}'
+  roles:
+    - homelab
