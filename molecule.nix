@@ -1,13 +1,14 @@
-{ buildPythonPackage
+{ buildPythonApplication
 , fetchFromGitHub
 , setuptools
 }:
-buildPythonPackage rec {
+buildPythonApplication rec {
   pname = "molecule-plugins[docker]";
   version = "23.5.3";
   build-system = [
     setuptools
   ];
+  format = "pyproject";
   src = fetchFromGitHub {
     owner = "ansible-community";
     repo = "molecule-plugins";
