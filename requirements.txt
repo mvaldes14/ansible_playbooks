@@ -1,5 +1,0 @@
-ansible-core
-ansible-lint
-kubernetes
-molecule
-molecule-plugins[docker]
