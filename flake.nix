@@ -9,10 +9,15 @@
     in
     {
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [
+        buildInputs = with pkgs;[
           ansible
           ansible-lint
-          molecule
+          python311Packages.kubernetes
+          python311Packages.pip
+          python3Packages.virtualenv
+          python3Packages.molecule-plugins
+          python3Packages.molecule-plugins.optional-dependencies.docker
+          python3Packages.molecule
         ];
       };
     };

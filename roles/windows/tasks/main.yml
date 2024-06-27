@@ -1,7 +1,6 @@
----
 # tasks file for windows
 - name: Install windows apps
-  community.windows.win_scoop:
+  chocolatey.chocolatey.win_chocolatey:
     name: "{{ item }}"
     state: present
   loop:
