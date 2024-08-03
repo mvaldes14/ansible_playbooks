@@ -1,0 +1,10 @@
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check user exists
+      ansible.builtin.user:
+        name: "mvaldes"
+        state: present
+
+#TODO: Check how it can read the role variables so i dont have to hardcode it here

@@ -19,6 +19,9 @@
           python3Packages.molecule-plugins.optional-dependencies.docker
           python3Packages.molecule
         ];
+        shellHook = ''
+          export ANSBIBLE_ROLES_PATH="$(pwd)/roles"
+        '';
       };
     };
 }

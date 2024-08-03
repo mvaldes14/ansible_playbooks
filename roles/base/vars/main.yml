@@ -1,4 +1,17 @@
-USER: 'mvaldes'
+user: 'mvaldes'
+git_repo_base: '$HOME/git'
+git_username: 'mvaldes14'
+git_repos:
+  - terraform
+  - terraform.nvim
+  - dotfiles
+  - dotfiles-nix
+  - ansible_playbooks
+  - blog
+  - twitch-bot
+  - chef
+  - pulumi
+  - k8s-apps
 utilities:
   - xclip
   - tldr
@@ -23,18 +36,15 @@ utilities:
   - unzip
   - youtube-dl
   - age
-
 cargo:
   - xcp
   - hyperfine
-
 pip:
   - ansible-lint
   - pre-commit
   - molecule
   - molecule-plugins[docker]
   - pytest-testinfra
-
 npm:
   - vite
   - pnpm
