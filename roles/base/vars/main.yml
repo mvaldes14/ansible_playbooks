@@ -12,6 +12,9 @@ git_repos:
   - chef
   - pulumi
   - k8s-apps
+base_apps:
+  - i3-wm
+  - rofi
 utilities:
   - xclip
   - tldr

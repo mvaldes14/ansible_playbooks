@@ -3,6 +3,4 @@
   hosts: local
   gather_facts: true
   roles:
-    - shell
     - base
-    - asdf
