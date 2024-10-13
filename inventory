@@ -7,5 +7,5 @@ eva04 ansible_host=192.168.1.193 ansible_user=mvaldes
 [local]
 localhost ansible_connection=local
 
-[pi]
+[raspberry]
 pi ansible_host=192.168.1.13 ansible_user=mvaldes
