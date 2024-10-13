@@ -1,28 +1,29 @@
 - name: Install applications for Ubuntu
-  become: true
-  become_method: ansible.builtin.sudo
   tags:
     - pkg
+  #TODO: Must install nerdfonts here
+  #https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+  # setup neovim ppa unstable
+  # install neovim, i3, rofi
   block:
     - name: 'Create user'
       ansible.builtin.user:
-        name: '{{ USER }}'
+        name: '{{ user }}'
         state: present
         create_home: true
-    - name: 'Update Cache'
+    - name: 'Install apps'
+      become: true
       ansible.builtin.apt:
-        update_cache: true
-    - name: 'Check workstation'
-      ansible.builtin.stat:
-        path: /usr/bin/cinc
-      register: cinc_installed
-    - name: 'Download Cinc Workstation'
-      ansible.builtin.get_url:
-        url: https://omnitruck.cinc.sh/install.sh
-        dest: /tmp/install.sh
-        mode: '755'
-      when: not cinc_installed.stat.exists
-    - name: 'Cinc Workstation'
-      ansible.builtin.command:
-        cmd: /tmp/install.sh -P cinc-workstation -v 22
-      when: not cinc_installed.stat.exists
+        name: '{{ item }}'
+        state: present
+        update_cache: true 
+      loop: '{{ base_apps }}'
+    - name: 'Create base git folder'
+      ansible.builtin.file:
+        state: directory
+        path: '{{ git_repo_base }}'
+    - name: 'Clone repos'
+      ansible.builtin.git:
+        repo: "https://github.com/{{ git_username }}/{{ item }}.git"
+        dest: '{{ git_repo_base }}/{{ item }}'
+      loop: '{{ git_repos }}'

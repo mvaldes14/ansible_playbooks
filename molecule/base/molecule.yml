@@ -1,0 +1,9 @@
+driver:
+  name: docker
+platforms:
+  - name: molecule-ubuntu
+    image: ubuntu:20.04
+    pre_build_image: false
+    dockerfile: ./Dockerfile
+verifier:
+  name: ansible

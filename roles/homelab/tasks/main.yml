@@ -29,12 +29,12 @@
       kubernetes.core.k8s_drain:
         state: cordon
         name: "{{ inventory_hostname }}"
-        kubeconfig: /home/mvaldes/.kube/config
+        kubeconfig: "/home/{{ user }}/.kube/config"
     - name: Drain node
       kubernetes.core.k8s_drain:
         state: drain
         name: "{{ inventory_hostname }}"
-        kubeconfig: /home/mvaldes/.kube/config
+        kubeconfig: "/home/{{ user }}/.kube/config"
         delete_options:
           ignore_daemonsets: true
           delete_emptydir_data: true
@@ -52,4 +52,4 @@
       kubernetes.core.k8s_drain:
         state: uncordon
         name: "{{ inventory_hostname }}"
-        kubeconfig: /home/mvaldes/.kube/config
+        kubeconfig: "/home/{{ user }}/.kube/config"
