@@ -2,7 +2,5 @@
   hosts: homelab_nodes
   become: true
   serial: 1
-  tasks:
-    - name: Run the role
-      ansible.builtin.include_role:
-        name: homelab
+  roles:
+    - homelab
