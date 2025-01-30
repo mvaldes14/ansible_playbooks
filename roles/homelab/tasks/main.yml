@@ -20,6 +20,11 @@
         name: "{{ item }}"
         state: present
       loop: "{{ python_dependencies }}"
+    - name: Vector Directory
+      ansible.builtin.file:
+        path: /opt/vector
+        state: directory
+        mode: 0755
     - name: Updates packages
       ansible.builtin.apt:
         name: "*"
