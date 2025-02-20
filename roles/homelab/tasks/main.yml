@@ -24,7 +24,7 @@
       ansible.builtin.file:
         path: /opt/vector
         state: directory
-        mode: 0755
+        mode: "0755"
     - name: Updates packages
       ansible.builtin.apt:
         name: "*"
@@ -45,6 +45,9 @@
           delete_emptydir_data: true
           force: true
           disable_eviction: true
+    - name: Pihole Update
+      ansible.builtin.shell: "pihole -up"
+      when: pihole
     - name: Reboot the machine
       ansible.builtin.reboot:
         reboot_timeout: 300
