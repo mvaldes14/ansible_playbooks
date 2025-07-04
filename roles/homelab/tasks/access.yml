@@ -1,0 +1,17 @@
+- name: Setup SSH Things
+  environment:
+    user: "mvaldes"
+  block:
+    - name: SSH Config
+      copy:
+        src: "sshd_config.j2"
+        dest: "/etc/ssh/sshd_config"
+        mode: "0644"
+        owner: root
+        group: root
+      notify: RestartSSH
+    - name: Get Certificate
+      get_url:
+        url: https://vault.mvaldes.dev/v1/ssh/public_key
+        dest: "/etc/ssh/vault-cert.pub"
+        mode: "0644"

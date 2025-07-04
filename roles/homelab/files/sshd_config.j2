@@ -1,0 +1,12 @@
+Include /etc/ssh/sshd_config.d/*.conf
+UsePAM yes
+X11Forwarding no
+PrintMotd yes
+AcceptEnv LANG LC_*
+TrustedUserCAKeys /etc/ssh/vault-cert.pub
+PermitEmptyPasswords no
+PasswordAuthentication no
+PubkeyAuthentication yes
+PermitRootLogin no
+KbdInteractiveAuthentication no
+Subsystem sftp    /usr/lib/openssh/sftp-server

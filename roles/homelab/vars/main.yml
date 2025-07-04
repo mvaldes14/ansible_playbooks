@@ -1,6 +1,2 @@
 # vars file for homelab
-node_dependencies:
-  - python3-pip
-python_dependencies:
-  - kubernetes
 user: 'mvaldes'

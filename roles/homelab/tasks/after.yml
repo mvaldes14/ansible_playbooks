@@ -1,0 +1,27 @@
+- name: Post Reboot Tasks
+  connection: local
+  block:
+    - name: Cordon node
+      kubernetes.core.k8s_drain:
+        state: cordon
+        name: "{{ inventory_hostname }}"
+        kubeconfig: "/home/{{ user }}/.kube/config"
+    - name: Drain node
+      kubernetes.core.k8s_drain:
+        state: drain
+        name: "{{ inventory_hostname }}"
+        kubeconfig: "/home/{{ user }}/.kube/config"
+        delete_options:
+          ignore_daemonsets: true
+          delete_emptydir_data: true
+          force: true
+          disable_eviction: true
+    - name: Wait for machine
+      ansible.builtin.wait_for_connection:
+        delay: 30
+        timeout: 600
+    - name: Uncordon node
+      kubernetes.core.k8s_drain:
+        state: uncordon
+        name: "{{ inventory_hostname }}"
+        kubeconfig: "/home/{{ user }}/.kube/config"
