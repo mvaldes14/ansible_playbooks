@@ -1,7 +1,26 @@
 # tasks file for homelab
 - name: SSH Access Setup
-  include_tasks: access.yml
+  include_tasks:
+    file: access.yml
+    apply:
+      tags:
+        - ssh
+  tags:
+    - ssh
 - name: Before Reboot
-  include_tasks: before.yml
+  include_tasks:
+    file: before.yml
+    apply:
+      delegate_to: localhost
+      tags:
+        - before
+  tags:
+    - before
 - name: Prepare Reboot
-  include_tasks: after.yml
+  include_tasks:
+    file: after.yml
+    apply:
+      tags:
+        - after
+  tags:
+    - after

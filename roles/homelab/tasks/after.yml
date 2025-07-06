@@ -1,21 +1,10 @@
 - name: Post Reboot Tasks
-  connection: local
   block:
-    - name: Cordon node
-      kubernetes.core.k8s_drain:
-        state: cordon
-        name: "{{ inventory_hostname }}"
-        kubeconfig: "/home/{{ user }}/.kube/config"
-    - name: Drain node
-      kubernetes.core.k8s_drain:
-        state: drain
-        name: "{{ inventory_hostname }}"
-        kubeconfig: "/home/{{ user }}/.kube/config"
-        delete_options:
-          ignore_daemonsets: true
-          delete_emptydir_data: true
-          force: true
-          disable_eviction: true
+      - name: Reboot the machine
+        ansible.builtin.reboot:
+          reboot_timeout: 300
+          pre_reboot_delay: 30
+          test_command: whoami
     - name: Wait for machine
       ansible.builtin.wait_for_connection:
         delay: 30

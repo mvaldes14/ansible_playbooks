@@ -5,7 +5,7 @@ eva03 ansible_host=192.168.1.23 ansible_user=mvaldes
 eva04 ansible_host=192.168.1.193 ansible_user=mvaldes
 
 [local]
-localhost ansible_connection=local
+localhost ansible_connection=local ansible_python_interpreter=/nix/store/sxr2igfkwhxbagri49b8krmcqz168sim-python3-3.11.8/bin/python3
 
 [raspberry]
 pi ansible_host=192.168.1.13 ansible_user=mvaldes

@@ -15,3 +15,12 @@
         url: https://vault.mvaldes.dev/v1/ssh/public_key
         dest: "/etc/ssh/vault-cert.pub"
         mode: "0644"
+    - name: Commands Without Sudo
+      community.general.sudoers:
+        name: sudoers-update
+        state: present
+        user: mvaldes
+        commands:
+          - /usr/bin/systemctl restart ssh
+          - /usr/bin/apt update
+          - /usr/bin/apt upgrade
