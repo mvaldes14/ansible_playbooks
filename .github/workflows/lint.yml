@@ -7,7 +7,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Lint
-        uses: ansible/ansible-lint-action@main
+        uses: ansible/ansible-lint@main
       - name: Notify
         uses: appleboy/telegram-action@master
         if: ${{ always() }}
