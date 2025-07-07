@@ -1,8 +1,8 @@
 - name: Install applications for Ubuntu
   tags:
     - pkg
-  #TODO: Must install nerdfonts here
-  #https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+  # TODO: Must install nerdfonts here
+  # https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
   # setup neovim ppa unstable
   # install neovim, i3, rofi
   block:
@@ -16,7 +16,7 @@
       ansible.builtin.apt:
         name: '{{ item }}'
         state: present
-        update_cache: true 
+        update_cache: true
       loop: '{{ base_apps }}'
     - name: 'Create base git folder'
       ansible.builtin.file:
