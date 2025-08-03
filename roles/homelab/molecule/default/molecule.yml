@@ -1,7 +1,6 @@
----
 driver:
   name: docker
 platforms:
-  - name: instance
-    image: quay.io/centos/centos:stream8
-    pre_build_image: true
+  - name: ubuntu
+    image: ubuntu:22.04
+    pre_build_image: no

@@ -1,4 +1,11 @@
 # tasks file for homelab
+- name: Update
+  apt:
+    update_cache: yes
+- name: Install ssh
+  apt:
+    name: openssh-server
+    state: present
 - name: SSH Access Setup
   include_tasks:
     file: access.yml
