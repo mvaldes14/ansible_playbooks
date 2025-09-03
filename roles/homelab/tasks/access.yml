@@ -11,11 +11,13 @@
         group: root
       notify: RestartSSH
     - name: Get Certificate
+      become: true
       get_url:
         url: https://vault.mvaldes.dev/v1/ssh/public_key
         dest: "/etc/ssh/vault-cert.pub"
         mode: "0644"
     - name: Commands Without Sudo
+      become: true
       community.general.sudoers:
         name: sudoers-update
         state: present

@@ -1,25 +1,18 @@
-- name: Cordon node
-  kubernetes.core.k8s_drain:
-    state: cordon
-    name: "{{ inventory_hostname }}"
-    kubeconfig: "/home/{{ user }}/.kube/config"
-- name: Drain node
-  kubernetes.core.k8s_drain:
-    state: drain
-    name: "{{ inventory_hostname }}"
-    kubeconfig: "/home/{{ user }}/.kube/config"
-    delete_options:
-      ignore_daemonsets: true
-      delete_emptydir_data: true
-      force: true
-      disable_eviction: true
 - name: Vector Directory
   ansible.builtin.file:
     path: /opt/vector
     state: directory
     mode: "0755"
-- name: Updates packages
-  ansible.builtin.apt:
-    name: "*"
-    state: latest
-    update_cache: true
+- name: Cordon node
+  kubernetes.core.k8s_drain:
+    state: cordon
+    name: "{{ inventory_hostname }}"
+- name: Drain node
+  kubernetes.core.k8s_drain:
+    state: drain
+    name: "{{ inventory_hostname }}"
+    delete_options:
+      ignore_daemonsets: true
+      delete_emptydir_data: true
+      force: true
+      disable_eviction: true
