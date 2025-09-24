@@ -13,6 +13,11 @@
     update_cache: true
   loop:
     - python3-kubernetes
+- name: Vector Directory
+  ansible.builtin.file:
+    path: /opt/vector
+    state: directory
+    mode: "0755"
 - name: SSH Access Setup
   include_tasks:
     file: access.yml
@@ -21,16 +26,27 @@
         - ssh
   tags:
     - ssh
-- name: Before Reboot
-  include_tasks:
-    file: before.yml
-    apply:
-      delegate_to: localhost
-      tags:
-        - before
-  tags:
-    - before
+- name: Kubernetes Drain
+  delegate_to: localhost
+  connection: local
+  vars:
+    ansible_python_interpreter: /home/mvaldes/git/ansible_playbooks/.venv/bin/python
+  block:
+    - name: Cordon node
+      kubernetes.core.k8s_drain:
+        state: cordon
+        name: "{{ inventory_hostname }}"
+    - name: Drain node
+      kubernetes.core.k8s_drain:
+        state: drain
+        name: "{{ inventory_hostname }}"
+        delete_options:
+          ignore_daemonsets: true
+          delete_emptydir_data: true
+          force: true
+          disable_eviction: true
 - name: Reboot the machine
+  become: true
   ansible.builtin.reboot:
     reboot_timeout: 300
     pre_reboot_delay: 30
@@ -39,11 +55,13 @@
   ansible.builtin.wait_for_connection:
     delay: 30
     timeout: 600
-- name: Prepare Reboot
-  include_tasks:
-    file: after.yml
-    apply:
-      tags:
-        - after
-  tags:
-    - after
+- name: Kubernetes Uncordon
+  delegate_to: localhost
+  connection: local
+  vars:
+    ansible_python_interpreter: /home/mvaldes/git/ansible_playbooks/.venv/bin/python
+  block:
+    - name: Uncordon node
+      kubernetes.core.k8s_drain:
+        state: uncordon
+        name: "{{ inventory_hostname }}"
