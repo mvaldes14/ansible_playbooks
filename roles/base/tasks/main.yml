@@ -1,11 +1,11 @@
 - name: Install applications for Ubuntu
   tags:
     - pkg
-  # TODO: Must install nerdfonts here
-  # https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
-  # setup neovim ppa unstable
-  # install neovim, i3, rofi
   block:
+    - name: 'Neovim PPA'
+      ansible.builtin.apt_repository:
+        repo: ppa:neovim-ppa/unstable
+        state: present
     - name: 'Create user'
       ansible.builtin.user:
         name: '{{ user }}'
