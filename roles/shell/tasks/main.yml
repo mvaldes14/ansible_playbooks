@@ -31,6 +31,7 @@
       ansible.builtin.file:
         dest: "/home/{{ user }}/.kube"
         state: directory
+        # TODO: Replace this with an actual symbolink link and not stow
     - name: Link Packages
       ansible.builtin.shell:
         cmd: cd /home/{{ user }}/git/dotfiles/.config; stow -t /home/{{ user }}/.config/{{ item }} {{ item }}
@@ -39,6 +40,9 @@
         - zsh
         - tmux
         - bat
+        - atuin
+        - opencode
+        - direnv
     - name: Link zshenv
       ansible.builtin.file:
         mode: '755'

@@ -16,10 +16,14 @@
       ansible.builtin.file:
         state: directory
         path: '{{ git_repo_base }}'
+    - name: 'Create base config folder'
+      ansible.builtin.file:
+        state: directory
+        path: "/home/{{ user }}/.config"
     - name: 'Clone repos'
       ansible.builtin.git:
         repo: "https://github.com/{{ git_username }}/{{ item }}.git"
-        dest: '/home/{{user}}//{{ git_repo_base }}/{{ item }}'
+        dest: '/home/{{ user }}/git/{{ item }}'
       loop: '{{ git_repos }}'
     - name: Setup Shell
       ansible.builtin.include_role:

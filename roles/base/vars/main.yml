@@ -1,5 +1,4 @@
 user: 'mvaldes'
-git_repo_base: '$HOME/git'
 git_username: 'mvaldes14'
 git_repos:
   - dotfiles
