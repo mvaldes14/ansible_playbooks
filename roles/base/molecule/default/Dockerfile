@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 RUN apt-get update && apt-get install -y \
     python3 \
@@ -6,4 +6,4 @@ RUN apt-get update && apt-get install -y \
     git
 
 # Install Ansible
-RUN pip3 install ansible pytest
+RUN apt install -y ansible-core

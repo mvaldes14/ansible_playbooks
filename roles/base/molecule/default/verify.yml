@@ -6,5 +6,15 @@
       ansible.builtin.user:
         name: "mvaldes"
         state: present
-
-# TODO: Check how it can read the role variables so i dont have to hardcode it here
+    - name: Check Core Packages
+      ansible.builtin.package:
+        name:
+          - neovim
+          - tmux
+    - name: Check Repos Cloned
+      ansible.builtin.stat:
+        path: "/home/mvaldes/git/{{ item }}"
+      loop:
+        - vorpal
+        - k8s-apps
+        - twitch-bot

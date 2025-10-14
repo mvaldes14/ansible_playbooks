@@ -13,7 +13,7 @@ Since this is ansible we use molecule to test the various scenarios done by the 
 ## Important
 By default molecule will not find this repo roles so make sure you export the following env variable so it works.
 
-    export ANSIBLE_ROLES_PATH="$(pwd)/roles"
-    molecule -s <scenario_name>
-
-
+```bash
+export ANSIBLE_ROLES_PATH="$(pwd)/roles"
+molecule -s <scenario_name>
+```

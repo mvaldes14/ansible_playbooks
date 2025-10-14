@@ -2,7 +2,6 @@ user: 'mvaldes'
 git_repo_base: '$HOME/git'
 git_username: 'mvaldes14'
 git_repos:
-  - wiki
   - dotfiles
   - k8s-apps
   - twitch-bot
@@ -18,18 +17,9 @@ git_repos:
   - todoist.nvim
   - linear.nvim
   - aoc
-  - timerly
   - server_scraper
-  - mvaldes14
   - deckmaster-config
   - pulumi
-  - nvim-lint
-  - asdf-tea
-  - vue-composer
-  - ELKTwitterIngestion
-  - Twitter-CLI
-  - babylog
-  - flask-reddithwswap
 base_apps:
   - neovim
   - tmux
@@ -37,3 +27,8 @@ base_apps:
   - ripgrep
   - zsh
   - tree
+  - gh
+  - jq
+  - bind9-dnsutils
+  - htop
+  - stow
