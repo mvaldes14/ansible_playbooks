@@ -2,6 +2,6 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Replace this task with one that validates your content
+    - name: Import the role to test
       include_role:
         name: base

@@ -1,3 +1,7 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
 driver:
   name: docker
 platforms:
@@ -7,3 +11,7 @@ platforms:
     dockerfile: ./Dockerfile
 verifier:
   name: ansible
+scenario:
+  test_sequence:
+    - converge
+    - verify

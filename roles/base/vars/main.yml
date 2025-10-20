@@ -1,4 +1,4 @@
-user: 'mvaldes'
+username_home: '/home/mvaldes14'
 git_username: 'mvaldes14'
 git_repos:
   - dotfiles

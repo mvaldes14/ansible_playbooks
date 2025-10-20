@@ -5,12 +5,11 @@
   vars:
     shell_startship_check: "{{ lookup('env', 'STARSHIP_SHELL') }}"
     shell_zsh_check: "{{ lookup('env', 'ZSH') }}"
-    user: "mvaldes"
   block:
     - name: Clone TPM
       ansible.builtin.git:
         repo: https://github.com/tmux-plugins/tpm.git
-        dest: "/home/{{ user }}/.tmux/plugins/tpm"
+        dest: "{{ username_home }}/.tmux/plugins/tpm"
     - name: Install Oh-my-zsh
       ansible.builtin.shell:
         cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -22,19 +21,20 @@
     - name: Clone ZSH Plugins
       ansible.builtin.git:
         repo: https://github.com/{{ item }}
-        dest: "/home/{{ user }}/.oh-my-zsh/custom/{{ item }}"
+        dest: "{{ username_home }}/.oh-my-zsh/custom/{{ item }}"
       with_items:
         - Aloxaf/fzf-tab.git
         - zsh-users/zsh-autosuggestions.git
         - zsh-users/zsh-syntax-highlighting.git
     - name: Kubectl Directory
       ansible.builtin.file:
-        dest: "/home/{{ user }}/.kube"
+        dest: "/home/{{ username }}/.kube"
         state: directory
-        # TODO: Replace this with an actual symbolink link and not stow
     - name: Link Packages
-      ansible.builtin.shell:
-        cmd: cd /home/{{ user }}/git/dotfiles/.config; stow -t /home/{{ user }}/.config/{{ item }} {{ item }}
+      ansible.builtin.file:
+        src: "{{ username_home }}/git/dotfiles/.config/{{ item }}"
+        dest: "{{ username_home }}/.config/{{ item }}"
+        state: link
       with_items:
         - nvim
         - zsh
@@ -46,6 +46,6 @@
     - name: Link zshenv
       ansible.builtin.file:
         mode: '755'
-        src: "/home/{{ user }}/git/dotfiles/.zshenv"
-        dest: "/home/{{ user }}/.zshenv"
+        src: "/home/{{ username }}/git/dotfiles/.zshenv"
+        dest: "/home/{{ username }}/.zshenv"
         state: link

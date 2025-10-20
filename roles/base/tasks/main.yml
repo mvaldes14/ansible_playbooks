@@ -14,8 +14,8 @@
       loop: '{{ base_apps }}'
     - name: 'Create base git folder'
       ansible.builtin.file:
+        path: '{{ username_home }}/git'
         state: directory
-        path: '{{ git_repo_base }}'
     - name: 'Create base config folder'
       ansible.builtin.file:
         state: directory
