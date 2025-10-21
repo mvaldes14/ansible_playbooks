@@ -18,6 +18,9 @@
       ansible.builtin.shell:
         cmd: sh - "$(curl -sS https://starship.rs/install.sh)
       when: not shell_startship_check
+    - name: Install Atuin
+      ansible.builtin.shell:
+        cmd: curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
     - name: Clone ZSH Plugins
       ansible.builtin.git:
         repo: https://github.com/{{ item }}
@@ -28,7 +31,7 @@
         - zsh-users/zsh-syntax-highlighting.git
     - name: Kubectl Directory
       ansible.builtin.file:
-        dest: "/home/{{ username }}/.kube"
+        dest: "{{ username_home }}/.kube"
         state: directory
     - name: Link Packages
       ansible.builtin.file:
@@ -46,6 +49,7 @@
     - name: Link zshenv
       ansible.builtin.file:
         mode: '755'
-        src: "/home/{{ username }}/git/dotfiles/.zshenv"
-        dest: "/home/{{ username }}/.zshenv"
+        src: "{{ username_home }}/git/dotfiles/.zshenv"
+        dest: "{{ username_home }}/.zshenv"
         state: link
+        force: yes

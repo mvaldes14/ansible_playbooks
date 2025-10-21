@@ -1,4 +1,4 @@
-username_home: '/home/mvaldes14'
+username_home: '/home/mvaldes'
 git_username: 'mvaldes14'
 git_repos:
   - dotfiles
@@ -30,4 +30,5 @@ base_apps:
   - jq
   - bind9-dnsutils
   - htop
-  - stow
+  - bat
+  - fzf
