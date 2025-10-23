@@ -1,7 +1,17 @@
----
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
 driver:
   name: docker
 platforms:
-  - name: instance
-    image: quay.io/centos/centos:stream8
-    pre_build_image: true
+  - name: molecule-ubuntu
+    image: ubuntu:24.04
+    pre_build_image: false
+    dockerfile: ./Dockerfile
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - converge
+    - verify

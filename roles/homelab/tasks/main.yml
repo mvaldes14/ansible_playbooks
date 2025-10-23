@@ -1,21 +1,28 @@
 # tasks file for homelab
-- name: Updates packages
+- name: Updates packages and install dependencies
   become: true
-  ansible.builtin.apt:
-    name: "*"
-    state: latest
-    update_cache: true
-- name: Dependencies
-  become: true
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: latest
-    update_cache: true
-  loop:
-    - python3-kubernetes
+  block:
+    - name: Packages
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+        update_cache: true
+    - name: Dependencies
+      become: true
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: true
+      loop:
+        - python3-kubernetes
 - name: Vector Directory
   ansible.builtin.file:
     path: /opt/vector
+    state: directory
+    mode: "0755"
+- name: Otel Directory
+  ansible.builtin.file:
+    path: /opt/otel
     state: directory
     mode: "0755"
 - name: SSH Access Setup
