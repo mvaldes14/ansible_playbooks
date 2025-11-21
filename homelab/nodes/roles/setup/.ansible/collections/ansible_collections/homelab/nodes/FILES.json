@@ -1,0 +1,348 @@
+{
+ "files": [
+  {
+   "name": ".",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/tasks",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/tasks/otel.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "b25e74c23d84cc5e8003ebf64d7c1d5055a823446d126ff3c24fa9fe98a3b10c",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/tasks/access.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e761f839a950e67e2300c5f3e155eb931d2acef8529d0ddf94a411c08bfe8d45",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/tasks/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "3fcdd82099aed4d24acc441ed7dfe4ab76c274608a8733137c3c0d04dacbfc26",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/verify.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "11d315f507cd5297e3af5b32acca55f4a868dd103c1ef5b13db61d6ee9c4415d",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/molecule.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "59e5e356fa7e76829e64b8ad9bf79f08acf555f455203eaf81fda207e36a09b2",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/tests",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/tests/test_default.py",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "ae6076f61d81c8bb4eefb37ea49905fc7311062292ce0c9297234ba9ac0382e9",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/.ansible",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/.ansible/roles",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/.ansible/collections",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/.ansible/modules",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/Dockerfile",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "53243a0ae9872ef2c5a83a18e313638838b9061d203868c04db09df2241f10e1",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/molecule/default/converge.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "1205abeba2be22b446e5f8d860d8a5921a9d0d5e156331aed8a2c8d82f1eb201",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/tests",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/tests/inventory",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e02233819b1a09844410549191813f7cc7ba360f21298578f4ba1727a27d87fc",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/tests/test.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "6e19029a7136eb1ba7d6dab0c3d801047b2fc4fc577c673cc19dc89f68f2fd3b",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/.ansible",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/.ansible/roles",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/.ansible/collections",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/.ansible/collections/ansible_collections",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/.ansible/collections/ansible_collections/homelab",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/.ansible/modules",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/meta/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "a3d5a07e45df0a1d5258e2a958dc91cc28748904b9734a7cbf2cbb995944ca01",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/vars",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/vars/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "725492915f933eaa5fb53a1513840fe04e51eea82f53e31c49e23fa8b78370a2",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/defaults",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/defaults/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "233b09b0be6fdf06943a954ca65954fd74b21e4a354150da6fd34e4b4293275a",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/files",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/files/sshd_config.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "53793529302bd34447e3bd02550c953e316f9368d39429f28dd3b3bf8281e28d",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/templates",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/templates/otel-config.yaml.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "d389024a06a4ef752c336148cce5a3635a4d9cdee6348d6f057fa6b7e7cb886a",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/templates/otel-agent.service.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "4329f732367c8cf5b91ad51bc5b0c83567991bb8167e4e22063c1458edd75499",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/handlers",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/setup/handlers/main.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "39404f9eebb0eda60a16a04a7e635cb3bb576e97c74d80337767bdcbc6bff2e6",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/handlers/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "1b8b177d7e5791d14227f80c9b1cb85363e881ee122dbc1d2a019025a567b62d",
+   "format": 1
+  },
+  {
+   "name": "roles/setup/README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "cc751d75266f757a38189f15d54e548dc87706f14a39756995c27b49eaca8a07",
+   "format": 1
+  },
+  {
+   "name": "docs",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "meta/runtime.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "b7120b2e4c1fb414f2ceaf843ff02be924839d58911560c1f6658c63ca3581cb",
+   "format": 1
+  },
+  {
+   "name": "README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "6fe8e9c2f50fb5efca0f281dba4c9a6fa80af52106026958fd28b4e6794e2729",
+   "format": 1
+  },
+  {
+   "name": "plugins",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "plugins/README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "1f0c1570611f0113fdc47b71348700c2aee33ac9e744d7b9229a75fdf96c9df0",
+   "format": 1
+  }
+ ],
+ "format": 1
+}

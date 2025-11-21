@@ -1,0 +1,45 @@
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check user exists
+      ansible.builtin.user:
+        name: "mvaldes"
+        state: present
+    - name: Check Core Packages
+      ansible.builtin.package:
+        name:
+          - neovim
+          - tmux
+          - bat
+          - git
+          - gh
+          - fzf
+        state: present
+    - name: Check Repos Cloned
+      ansible.builtin.stat:
+        path: "/home/mvaldes/git/{{ item }}"
+      register: repo_stat
+      loop:
+        - vorpal
+        - k8s-apps
+        - twitch-bot
+        - dotfiles
+    - name: Check files are linked
+      ansible.builtin.stat:
+        path: "/home/mvaldes/.config/{{ item }}"
+      register: config_stat
+      loop:
+        - nvim
+        - zsh
+        - tmux
+        - bat
+        - atuin
+    - name: test_1
+      ansible.builtin.debug:
+        msg: "File: {{ item.item }}, Is Link: {{ item.stat.islnk }}"
+      loop: repo_stat.results
+    - name: test_2
+      ansible.builtin.debug:
+        msg: "File: {{ item.item }}, Is Link: {{ item.stat.islnk }}"
+      loop: config_stat.results
