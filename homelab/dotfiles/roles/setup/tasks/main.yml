@@ -33,6 +33,10 @@
       ansible.builtin.file:
         dest: "{{ username_home }}/.kube"
         state: directory
+    - name: 'Create base config folder'
+      ansible.builtin.file:
+        state: directory
+        path: "{{ username_home }}/.config"
     - name: Link Packages
       ansible.builtin.file:
         src: "{{ username_home }}/git/dotfiles/.config/{{ item }}"
@@ -52,4 +56,14 @@
         src: "{{ username_home }}/git/dotfiles/.zshenv"
         dest: "{{ username_home }}/.zshenv"
         state: link
-        force: yes
+        force: true
+    - name: 'Neovim PPA'
+      ansible.builtin.apt_repository:
+        repo: ppa:neovim-ppa/unstable
+        state: present
+    - name: 'Install apps'
+      ansible.builtin.apt:
+        name: '{{ item }}'
+        state: present
+        update_cache: true
+      loop: '{{ base_apps }}'

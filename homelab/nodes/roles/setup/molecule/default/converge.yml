@@ -1,7 +1,5 @@
 - name: Converge
   hosts: all
-  gather_facts: false
-  tasks:
-    - name: Import the role to test
-      include_role:
-        name: setup
+  gather_facts: true
+  roles:
+    - role: setup

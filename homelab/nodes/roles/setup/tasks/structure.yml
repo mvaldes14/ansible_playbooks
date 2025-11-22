@@ -1,0 +1,27 @@
+- name: Sets up machine
+  block:
+    - name: 'Create base git folder'
+      ansible.builtin.file:
+        path: '{{ username_home }}/git'
+        state: directory
+    - name: 'Clone repos'
+      ansible.builtin.git:
+        repo: "https://github.com/{{ git_username }}/{{ item }}.git"
+        dest: '{{ username_home }}/git/{{ item }}'
+      loop: '{{ git_repos }}'
+    - name: Check tailscale installed
+      ansible.builtin.stat:
+        path: /usr/bin/tailscaled
+      register: tailscale_check
+    - name: 'Pihole running'
+      ansible.builtin.systemd:
+        name: pihole-FTL
+        state: started
+        enabled: true
+      when: inventory_hostname in ["eva02", "eva01"]
+    - name: 'Tailscaled running'
+      ansible.builtin.systemd:
+        name: tailscaled
+        state: started
+        enabled: true
+      when: tailscale_check.stat.exists

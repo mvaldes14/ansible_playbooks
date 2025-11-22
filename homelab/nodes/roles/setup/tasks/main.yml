@@ -2,32 +2,8 @@
   tags:
     - pkg
   block:
-    - name: 'Neovim PPA'
-      ansible.builtin.apt_repository:
-        repo: ppa:neovim-ppa/unstable
-        state: present
-    - name: 'Install apps'
-      ansible.builtin.apt:
-        name: '{{ item }}'
-        state: present
-        update_cache: true
-      loop: '{{ base_apps }}'
-    - name: 'Create base git folder'
-      ansible.builtin.file:
-        path: '{{ username_home }}/git'
-        state: directory
-    - name: 'Create base config folder'
-      ansible.builtin.file:
-        state: directory
-        path: "{{ username_home }}/.config"
-    - name: 'Clone repos'
-      ansible.builtin.git:
-        repo: "https://github.com/{{ git_username }}/{{ item }}.git"
-        dest: '{{ username_home }}/git/{{ item }}'
-      loop: '{{ git_repos }}'
-    - name: Setup Shell
-      ansible.builtin.include_role:
-        name: shell
+    - name: Setup Structure
+      include_tasks: structure.yml
     - name: Setup SSH Access
       include_tasks: access.yml
     - name: Setup Otel Agent

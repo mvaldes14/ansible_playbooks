@@ -1,3 +1,5 @@
-#SPDX-License-Identifier: MIT-0
----
 # handlers file for setup
+- name: RestartSSH
+  service:
+    name: ssh
+    state: restarted

@@ -12,7 +12,7 @@ platforms:
 provisioner:
   name: ansible
   env:
-    ANSIBLE_ROLES_PATH: /home/mvaldes/git/ansible_playbooks/homelab/nodes/roles
+    ANSIBLE_ROLES_PATH: "${MOLECULE_PROJECT_DIRECTORY}/.."
 verifier:
   name: ansible
 scenario:
