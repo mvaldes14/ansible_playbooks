@@ -2,6 +2,11 @@
   environment:
     user: "mvaldes"
   block:
+    - name: Install ssh package
+      ansible.builtin.apt:
+        name: openssh-server
+        state: present
+        update_cache: true
     - name: SSH Config
       ansible.builtin.copy:
         src: "sshd_config.j2"

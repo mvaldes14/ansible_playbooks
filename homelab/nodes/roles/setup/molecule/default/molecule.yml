@@ -9,6 +9,12 @@ platforms:
     image: ubuntu:24.04
     pre_build_image: false
     dockerfile: ./Dockerfile
+    command: ""
+    privileged: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
 provisioner:
   name: ansible
   env:

@@ -1,5 +1,8 @@
 # handlers file for setup
 - name: RestartSSH
-  service:
+  ansible.builtin.systemd:
     name: ssh
     state: restarted
+- name: Restart Systemd Daemon
+  ansible.builtin.systemd:
+    daemon_reload: true

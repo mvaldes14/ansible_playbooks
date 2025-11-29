@@ -13,6 +13,7 @@ receivers:
 
   filelog:
     include:
+    - '/var/log/containers/*.log'
     - '/var/log/*.log'
     start_at: beginning
 
@@ -28,7 +29,7 @@ processors:
 
 exporters:
   otlphttp:
-    endpoint: http://{{ agent-endpoint }}:{{ agent-port }}
+    endpoint: http://{{ agent_endpoint }}:{{ agent_port }}
     tls:
       insecure: true
 

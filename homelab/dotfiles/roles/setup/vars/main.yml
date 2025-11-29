@@ -13,3 +13,24 @@ base_apps:
   - htop
   - bat
   - fzf
+git_username: 'mvaldes14'
+git_repos:
+  - dotfiles
+  - k8s-apps
+  - twitch-bot
+  - blog
+  - terraform
+  - dotfiles-nix
+  - ansible_playbooks
+  - meal-notifier
+  - gh-actions
+  - terraform.nvim
+  - chef
+  - vorpal
+  - todoist.nvim
+  - linear.nvim
+  - aoc
+  - server_scraper
+  - deckmaster-config
+  - pulumi
+username_home: '/home/mvaldes'

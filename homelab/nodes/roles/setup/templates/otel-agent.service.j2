@@ -8,6 +8,6 @@ WantedBy=multi-user.target
 
 [Service]
 Type=notify
-User=root
+User=otel
 Restart=always
-ExecStart=/usr/local/bin/otelcol-contrib --config /etc/otel-config.yml
+ExecStart=/usr/local/bin/otelcol-contrib --config /opt/otel-agent/otel-config.yaml

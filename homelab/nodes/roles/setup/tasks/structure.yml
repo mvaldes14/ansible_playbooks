@@ -1,14 +1,16 @@
 - name: Sets up machine
   block:
-    - name: 'Create base git folder'
-      ansible.builtin.file:
-        path: '{{ username_home }}/git'
-        state: directory
-    - name: 'Clone repos'
-      ansible.builtin.git:
-        repo: "https://github.com/{{ git_username }}/{{ item }}.git"
-        dest: '{{ username_home }}/git/{{ item }}'
-      loop: '{{ git_repos }}'
+    - name: Set architecture variable
+      ansible.builtin.set_fact:
+        system_arch: "{{ ansible_architecture }}"
+    - name: Map architecture to common naming
+      ansible.builtin.set_fact:
+        node_arch: "{{ arch_map[ansible_architecture] | default('amd64') }}"
+      vars:
+        arch_map:
+          x86_64: amd64
+          aarch64: arm64
+          armv7l: arm
     - name: Check tailscale installed
       ansible.builtin.stat:
         path: /usr/bin/tailscaled
