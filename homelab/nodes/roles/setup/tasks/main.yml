@@ -1,0 +1,10 @@
+- name: Install applications for Ubuntu
+  tags:
+    - pkg
+  block:
+    - name: Setup Structure
+      include_tasks: structure.yml
+    - name: Setup SSH Access
+      include_tasks: access.yml
+    - name: Setup Otel Agent
+      include_tasks: otel.yml

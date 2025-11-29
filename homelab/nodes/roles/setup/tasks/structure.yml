@@ -1,0 +1,29 @@
+- name: Sets up machine
+  block:
+    - name: Set architecture variable
+      ansible.builtin.set_fact:
+        system_arch: "{{ ansible_architecture }}"
+    - name: Map architecture to common naming
+      ansible.builtin.set_fact:
+        node_arch: "{{ arch_map[ansible_architecture] | default('amd64') }}"
+      vars:
+        arch_map:
+          x86_64: amd64
+          aarch64: arm64
+          armv7l: arm
+    - name: Check tailscale installed
+      ansible.builtin.stat:
+        path: /usr/bin/tailscaled
+      register: tailscale_check
+    - name: 'Pihole running'
+      ansible.builtin.systemd:
+        name: pihole-FTL
+        state: started
+        enabled: true
+      when: inventory_hostname in ["eva02", "eva01"]
+    - name: 'Tailscaled running'
+      ansible.builtin.systemd:
+        name: tailscaled
+        state: started
+        enabled: true
+      when: tailscale_check.stat.exists

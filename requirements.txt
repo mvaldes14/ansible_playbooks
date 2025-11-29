@@ -3,3 +3,5 @@ kubernetes
 molecule
 molecule-plugins
 molecule-plugins[docker]
+ansible-creator
+ansible-dev-tools
