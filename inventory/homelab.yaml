@@ -4,5 +4,5 @@ eva01 ansible_host=192.168.1.22 ansible_user=mvaldes
 eva03 ansible_host=192.168.1.23 ansible_user=mvaldes
 eva04 ansible_host=192.168.1.193 ansible_user=mvaldes
 
-[raspberry]
+[pi]
 pi ansible_host=192.168.1.13 ansible_user=mvaldes

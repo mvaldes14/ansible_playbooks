@@ -1,8 +1,18 @@
 - name: Setup SSH Things
-  environment:
-    user: "mvaldes"
   block:
+    - name: Commands Without Sudo
+      become: true
+      community.general.sudoers:
+        name: sudoers-nopasswd
+        state: present
+        user: "{{ username }}"
+        commands:
+          - /usr/bin/systemctl restart ssh
+          - /usr/bin/apt update
+          - /usr/bin/apt upgrade
+        nopassword: true
     - name: Install ssh package
+      become: true
       ansible.builtin.apt:
         name: openssh-server
         state: present
@@ -16,18 +26,8 @@
         group: root
       notify: RestartSSH
     - name: Get Certificate
+      become: true
       ansible.builtin.get_url:
         url: https://vault.mvaldes.dev/v1/ssh/public_key
         dest: "/etc/ssh/vault-cert.pub"
         mode: "0644"
-    - name: Commands Without Sudo
-      become: true
-      community.general.sudoers:
-        name: sudoers-mvaldes-nopasswd
-        state: present
-        user: mvaldes
-        commands:
-          - /usr/bin/systemctl restart ssh
-          - /usr/bin/apt update
-          - /usr/bin/apt upgrade
-        nopassword: true

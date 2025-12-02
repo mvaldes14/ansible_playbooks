@@ -17,10 +17,10 @@
       register: tailscale_check
     - name: 'Pihole running'
       ansible.builtin.systemd:
-        name: pihole-FTL
+        name: pihole-FTL.service
         state: started
         enabled: true
-      when: inventory_hostname in ["eva02", "eva01"]
+      when: pihole_enabled # Comes from host variables
     - name: 'Tailscaled running'
       ansible.builtin.systemd:
         name: tailscaled
