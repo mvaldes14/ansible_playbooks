@@ -2,6 +2,28 @@
   hosts: homelab_nodes
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  serial: 1
+  serial: 1 # So the reboot is sequential
   roles:
     - node_setup
+  tasks:
+    - name: Uppdate packages
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+    - name: Cordon Nodes
+      kubernetes.core.k8s_drain:
+        name: "{{ inventory_hostname }}"
+        state: cordon
+      delegate_to: localhost
+    - name: Reboot the machine
+      become: true
+      ansible.builtin.reboot:
+        reboot_timeout: 600
+        pre_reboot_delay: 10
+        post_reboot_delay: 30
+        test_command: whoami
+    - name: Uncordon Nodes
+      kubernetes.core.k8s_drain:
+        name: "{{ inventory_hostname }}"
+        state: uncordoned
+      delegate_to: localhost
