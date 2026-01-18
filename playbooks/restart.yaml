@@ -6,7 +6,8 @@
   roles:
     - node_setup
   tasks:
-    - name: Uppdate packages
+    - name: Update Packages
+      become: true
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
@@ -15,6 +16,8 @@
         name: "{{ inventory_hostname }}"
         state: cordon
       delegate_to: localhost
+      vars:
+        ansible_python_interpreter: "{{ ansible_playbook_python }}"
     - name: Reboot the machine
       become: true
       ansible.builtin.reboot:
@@ -27,3 +30,5 @@
         name: "{{ inventory_hostname }}"
         state: uncordon
       delegate_to: localhost
+      vars:
+        ansible_python_interpreter: "{{ ansible_playbook_python }}"

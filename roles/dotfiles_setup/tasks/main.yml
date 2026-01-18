@@ -2,77 +2,46 @@
 - name: Tasks for shell setup
   tags:
     - shell
-  vars:
-    shell_startship_check: "{{ lookup('env', 'STARSHIP_SHELL') }}"
-    shell_zsh_check: "{{ lookup('env', 'ZSH') }}"
   block:
-    - name: Clone TPM
-      ansible.builtin.git:
-        repo: https://github.com/tmux-plugins/tpm.git
-        dest: "{{ username_home }}/.tmux/plugins/tpm"
-    - name: Install Oh-my-zsh
-      ansible.builtin.shell:
-        cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-      when: not shell_zsh_check
-    - name: Install starship
-      ansible.builtin.shell:
-        cmd: sh - "$(curl -sS https://starship.rs/install.sh)
-      when: not shell_startship_check
-    - name: Install Atuin
-      ansible.builtin.shell:
-        cmd: curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
-    - name: Clone ZSH Plugins
-      ansible.builtin.git:
-        repo: https://github.com/{{ item }}
-        dest: "{{ username_home }}/.oh-my-zsh/custom/{{ item }}"
-      with_items:
-        - Aloxaf/fzf-tab.git
-        - zsh-users/zsh-autosuggestions.git
-        - zsh-users/zsh-syntax-highlighting.git
+    - name: Create user group
+      ansible.builtin.group:
+        name: "{{ username }}"
+        state: present
+    - name: Create user
+      ansible.builtin.user:
+        name: "{{ username }}"
+        group: "{{ username }}"
+        shell: /bin/bash
+        create_home: true
     - name: Kubectl Directory
       ansible.builtin.file:
         dest: "{{ username_home }}/.kube"
         state: directory
-    - name: 'Create base config folder'
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0755"
+    - name: Create base config folder
       ansible.builtin.file:
         state: directory
         path: "{{ username_home }}/.config"
-    - name: Link Packages
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0755"
+    - name: Create base git folder
       ansible.builtin.file:
-        src: "{{ username_home }}/git/dotfiles/.config/{{ item }}"
-        dest: "{{ username_home }}/.config/{{ item }}"
-        state: link
-      with_items:
-        - nvim
-        - zsh
-        - tmux
-        - bat
-        - atuin
-        - opencode
-        - direnv
-    - name: Link zshenv
-      ansible.builtin.file:
-        mode: '755'
-        src: "{{ username_home }}/git/dotfiles/.zshenv"
-        dest: "{{ username_home }}/.zshenv"
-        state: link
-        force: true
-    - name: 'Neovim PPA'
-      ansible.builtin.apt_repository:
-        repo: ppa:neovim-ppa/unstable
-        state: present
-    - name: 'Install apps'
-      ansible.builtin.apt:
-        name: '{{ item }}'
-        state: present
-        update_cache: true
-      loop: '{{ base_apps }}'
-    - name: 'Create base git folder'
-      ansible.builtin.file:
-        path: '{{ username_home }}/git'
+        path: "{{ username_home }}/git"
         state: directory
-    - name: 'Clone repos'
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0755"
+    - name: Clone repos
       ansible.builtin.git:
         repo: "https://github.com/{{ git_username }}/{{ item }}.git"
-        dest: '{{ username_home }}/git/{{ item }}'
-      loop: '{{ git_repos }}'
+        dest: "{{ username_home }}/git/{{ item }}"
+      loop: "{{ git_repos }}"
+      register: clone_result
+      failed_when:
+        - clone_result.failed
+        - "'could not read Username' not in clone_result.msg"
+    - name: Set pre commit hooks template
+      ansible.builtin.include_tasks: git-commits.yml

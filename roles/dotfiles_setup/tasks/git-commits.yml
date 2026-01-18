@@ -1,0 +1,60 @@
+# tasks file for git conventional commits setup
+- name: Create git templates directory
+  ansible.builtin.file:
+    path: "{{ username_home }}/.git-templates/hooks"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+
+- name: Install commit-msg hook
+  ansible.builtin.copy:
+    dest: "{{ username_home }}/.git-templates/hooks/commit-msg"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+    content: |
+      #!/bin/bash
+      commit_msg_file=$1
+      commit_msg=$(cat "$commit_msg_file")
+
+      if echo "$commit_msg" | grep -q "^Merge"; then
+          exit 0
+      fi
+
+      pattern='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9_-]+\))?: .{3,}'
+      breaking_pattern='!(\([a-z0-9_-]+\))?: '
+
+      if echo "$commit_msg" | grep -qE "$pattern" || echo "$commit_msg" | grep -qE "$breaking_pattern"; then
+          exit 0
+      else
+          echo "Invalid commit format. Use: <type>(<scope>): <description>"
+          echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+          exit 1
+      fi
+
+- name: Configure git template directory
+  community.general.git_config:
+    scope: global
+    name: init.templateDir
+    value: "{{ username_home }}/.git-templates"
+  become: true
+  become_user: "{{ username }}"
+
+- name: Install commit template
+  ansible.builtin.copy:
+    dest: "{{ username_home }}/.git-templates/commit-template.txt"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0644"
+    content: |
+      # <type>(<scope>): <subject>
+      # Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+
+- name: Configure git commit template
+  community.general.git_config:
+    scope: global
+    name: commit.template
+    value: "{{ username_home }}/.git-templates/commit-template.txt"
+  become: true
+  become_user: "{{ username }}"

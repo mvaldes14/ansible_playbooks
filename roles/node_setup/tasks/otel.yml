@@ -3,12 +3,12 @@
     - otel
   become: true
   block:
-    - name: Create user
+    - name: Create User
       ansible.builtin.user:
         name: otel
         system: true
         create_home: false
-        groups: "root"
+        shell: /usr/sbin/nologin
     - name: Check Agent Installed
       ansible.builtin.stat:
         path: /usr/local/bin/otelcol-contrib
@@ -44,12 +44,15 @@
         owner: "otel"
         group: "otel"
         mode: "0644"
-      notify: Restart Systemd Daemon
+      notify: Restart Otel Agent
     - name: Setup Systemd Service
       ansible.builtin.template:
         src: "otel-agent.service.j2"
         dest: "/etc/systemd/system/otel-agent.service"
         mode: "0644"
+      notify:
+        - Restart Systemd Daemon
+        - Restart Otel Agent
     - name: Enable and Start Service
       ansible.builtin.systemd:
         name: otel-agent

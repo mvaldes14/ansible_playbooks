@@ -1,0 +1,2 @@
+# eva01 specific overrides
+pihole_enabled: true

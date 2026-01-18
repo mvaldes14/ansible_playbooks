@@ -5,7 +5,7 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: molecule-ubuntu
+  - name: homelab-node-test
     image: ubuntu:24.04
     pre_build_image: false
     dockerfile: ./Dockerfile
@@ -23,5 +23,8 @@ verifier:
   name: ansible
 scenario:
   test_sequence:
+    - destroy
+    - create
     - converge
     - verify
+    - destroy

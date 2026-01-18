@@ -1,19 +1,6 @@
 #SPDX-License-Identifier: MIT-0
 # vars file for setup
-base_apps:
-  - neovim
-  - tmux
-  - fd-find
-  - ripgrep
-  - zsh
-  - tree
-  - gh
-  - jq
-  - bind9-dnsutils
-  - htop
-  - bat
-  - fzf
-git_username: 'mvaldes14'
+git_username: "mvaldes14"
 git_repos:
   - dotfiles
   - k8s-apps
@@ -33,4 +20,5 @@ git_repos:
   - server_scraper
   - deckmaster-config
   - pulumi
-username_home: '/home/mvaldes'
+username: "mvaldes"
+username_home: "/home/mvaldes"

@@ -7,6 +7,7 @@
     - name: Setup SSH Access
       include_tasks: access.yml
     - name: Setup Otel Agent
-      include_tasks: otel.yml
+      ansible.builtin.include_tasks: otel.yml
+      when: otel_enabled | default(true)
     - name: Setup MOTD
       include_tasks: motd.yml
