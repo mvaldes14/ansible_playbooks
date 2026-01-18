@@ -1,6 +1,7 @@
 - name: Setup Otel Agent
   tags:
     - otel
+  become: true
   block:
     - name: Create user
       ansible.builtin.user:
@@ -16,12 +17,16 @@
       when: not otel_agent.stat.exists
       block:
         - name: Download Otel Agent
+          vars:
+            otel_url: "https://github.com/open-telemetry/opentelemetry-collector-releases/releases"
+            otel_file: "otelcol-contrib_{{ otel_version }}_linux_{{ node_arch }}.tar.gz"
           ansible.builtin.get_url:
-            url: "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v{{otel_version}}/otelcol-contrib_{{otel_version}}_linux_{{node_arch}}.tar.gz"
-            dest: "/tmp/otelcol-contrib_{{otel_version}}_linux_amd64.tar.gz"
+            url: "{{ otel_url }}/download/v{{ otel_version }}/{{ otel_file }}"
+            dest: "/tmp/{{ otel_file }}"
+            mode: "0644"
         - name: Unpack Otel Agent
           ansible.builtin.unarchive:
-            src: "/tmp/otelcol-contrib_{{otel_version}}_linux_amd64.tar.gz"
+            src: "/tmp/otelcol-contrib_{{ otel_version }}_linux_{{ node_arch }}.tar.gz"
             dest: "/usr/local/bin/"
             remote_src: true
             mode: "0755"
@@ -50,4 +55,3 @@
         name: otel-agent
         enabled: true
         state: started
-  become: true

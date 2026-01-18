@@ -8,3 +8,5 @@
       include_tasks: access.yml
     - name: Setup Otel Agent
       include_tasks: otel.yml
+    - name: Setup MOTD
+      include_tasks: motd.yml

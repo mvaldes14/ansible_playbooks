@@ -35,11 +35,11 @@
         - tmux
         - bat
         - atuin
-    - name: test_1
+    - name: Debug Repo Clone Status
       ansible.builtin.debug:
         msg: "File: {{ item.item }}, Is Link: {{ item.stat.islnk }}"
       loop: repo_stat.results
-    - name: test_2
+    - name: Debug Config Link Status
       ansible.builtin.debug:
         msg: "File: {{ item.item }}, Is Link: {{ item.stat.islnk }}"
       loop: config_stat.results

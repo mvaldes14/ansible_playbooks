@@ -1,0 +1,81 @@
+#!/bin/bash
+# Dynamic MOTD script
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# ASCII art with hostname
+echo -e "${CYAN}"
+cat << "EOF"
+  _   _                      _       _     
+ | | | | ___  _ __ ___   ___| | __ _| |__  
+ | |_| |/ _ \| '_ ` _ \ / _ \ |/ _` | '_ \ 
+ |  _  | (_) | | | | | |  __/ | (_| | |_) |
+ |_| |_|\___/|_| |_| |_|\___|_|\__,_|_.__/ 
+EOF
+echo -e "${NC}"
+
+echo -e "${GREEN}==================================================${NC}"
+echo -e "${YELLOW}  Node: ${CYAN}{{ inventory_hostname }}${NC}"
+echo -e "${GREEN}==================================================${NC}"
+echo ""
+
+# System Info
+echo -e "${BLUE}System Information:${NC}"
+echo -e "  Hostname:    $(hostname -f 2>/dev/null || hostname)"
+echo -e "  Uptime:      $(uptime -p 2>/dev/null || uptime | sed 's/.*up //' | sed 's/,.*$//')"
+echo -e "  Kernel:      $(uname -r)"
+echo ""
+
+# Check for updates
+echo -e "${BLUE}Package Updates:${NC}"
+if command -v apt-get &> /dev/null; then
+    UPDATES=$(apt-get -s upgrade 2>/dev/null | grep -P '^\d+ upgraded' | cut -d" " -f1)
+    SECURITY=$(apt-get -s upgrade 2>/dev/null | grep -i security | wc -l)
+    
+    if [ -z "$UPDATES" ] || [ "$UPDATES" -eq 0 ]; then
+        echo -e "  ${GREEN}System is up to date${NC}"
+    else
+        echo -e "  ${YELLOW}$UPDATES package(s) can be upgraded${NC}"
+        if [ "$SECURITY" -gt 0 ]; then
+            echo -e "  ${RED}$SECURITY security update(s) available${NC}"
+        fi
+    fi
+    
+    # Check if reboot is required
+    if [ -f /var/run/reboot-required ]; then
+        echo -e "  ${RED}*** System reboot required ***${NC}"
+    fi
+else
+    echo -e "  ${YELLOW}Package manager not supported${NC}"
+fi
+echo ""
+
+# Disk usage warning
+echo -e "${BLUE}Disk Usage:${NC}"
+df -h / | awk 'NR==2 {
+    usage = int($5)
+    if (usage >= 90) 
+        printf "  Root: \033[0;31m%s used (%s of %s)\033[0m\n", $5, $3, $2
+    else if (usage >= 75)
+        printf "  Root: \033[0;33m%s used (%s of %s)\033[0m\n", $5, $3, $2
+    else
+        printf "  Root: \033[0;32m%s used (%s of %s)\033[0m\n", $5, $3, $2
+}'
+echo ""
+
+# Memory usage
+echo -e "${BLUE}Memory Usage:${NC}"
+free -h | awk 'NR==2 {
+    used = $3
+    total = $2
+    printf "  RAM:  %s / %s\n", used, total
+}'
+echo ""
+
+echo -e "${GREEN}==================================================${NC}"
