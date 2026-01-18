@@ -8,14 +8,3 @@ jobs:
         uses: actions/checkout@v3
       - name: Lint
         uses: ansible/ansible-lint@main
-      - name: Notify
-        uses: appleboy/telegram-action@master
-        if: ${{ always() }}
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            Workflow status: ${{ job.status }}
-            Commit: ${{ github.event.head_commit.message }}
-            Repository: ${{ github.repository }}
-            View changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}

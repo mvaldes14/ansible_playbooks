@@ -1,3 +1,5 @@
+#SPDX-License-Identifier: MIT-0
+---
 # tasks file for windows
 - name: Install windows apps
   chocolatey.chocolatey.win_chocolatey:
