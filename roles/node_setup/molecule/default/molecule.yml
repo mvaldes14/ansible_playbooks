@@ -1,0 +1,30 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: docker
+platforms:
+  - name: homelab-node-test
+    image: ubuntu:24.04
+    pre_build_image: false
+    dockerfile: ./Dockerfile
+    command: ""
+    privileged: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: "${MOLECULE_PROJECT_DIRECTORY}/.."
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - verify
+    - destroy

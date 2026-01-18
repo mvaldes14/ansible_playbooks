@@ -1,0 +1,2 @@
+# eva03 specific overrides
+# (inherits all defaults from group_vars/homelab_nodes.yaml)

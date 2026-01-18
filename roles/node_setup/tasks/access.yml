@@ -1,0 +1,46 @@
+- name: Setup SSH Things
+  block:
+    - name: Commands Without Sudo
+      become: true
+      community.general.sudoers:
+        name: sudoers-nopasswd
+        state: present
+        user: "{{ username }}"
+        commands:
+          - /usr/bin/systemctl restart ssh
+          - /usr/bin/apt update
+          - /usr/bin/apt upgrade
+        nopassword: true
+    - name: Install ssh package
+      become: true
+      ansible.builtin.apt:
+        name: openssh-server
+        state: present
+        update_cache: true
+    - name: SSH Config
+      ansible.builtin.copy:
+        src: "sshd_config.j2"
+        dest: "/etc/ssh/sshd_config"
+        mode: "0644"
+        owner: root
+        group: root
+      notify: RestartSSH
+    - name: Check Vault SSH Endpoint
+      ansible.builtin.uri:
+        url: https://vault.mvaldes.dev/v1/ssh/public_key
+        method: GET
+        return_content: false
+        status_code:
+          - 200
+          - -1
+      ignore_errors: true
+      register: vault_ssh_check
+    - name: Get Certificate
+      become: true
+      ansible.builtin.get_url:
+        url: https://vault.mvaldes.dev/v1/ssh/public_key
+        dest: "/etc/ssh/vault-cert.pub"
+        mode: "0644"
+      when:
+        - vault_ssh_check is success
+        - vault_ssh_check.status == 200
