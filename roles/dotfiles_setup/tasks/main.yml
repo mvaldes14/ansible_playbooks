@@ -43,5 +43,3 @@
       failed_when:
         - clone_result.failed
         - "'could not read Username' not in clone_result.msg"
-    - name: Set pre commit hooks template
-      ansible.builtin.include_tasks: git-commits.yml

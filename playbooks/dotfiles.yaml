@@ -1,6 +1,6 @@
---- # Main playbook
+# Main playbook
 - name: Base Setup for new system
   hosts: local
   gather_facts: true
   roles:
-    - base
+    - role: dotfiles_setup
